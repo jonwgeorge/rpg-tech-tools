@@ -1,0 +1,31 @@
+extends ../layout
+
+block variables
+  - var title = "Dashboard"
+  - var userAvatar = `${user.profile.avatar}`
+
+block content
+  h2.text-center Dashboard
+
+  .row
+    .offset-sm-2.col-sm-8
+      .text-center.
+        Welcome to your dashboard page, #{user.profile.firstName}.      
+  br
+  .row
+    .col-sm-3
+      div
+        if userAvatar === null
+          img(src=`${user.profile.avatar}`)
+        else
+          img(src="/images/blank-user.jpg" width="250" height="250")
+        h3 #{user.profile.firstName} #{user.profile.lastName}
+        p #{user.profile.displayName}
+      div
+        a(href="/dashboard/edit")
+          button.btn.btn-primary() Edit Profile
+    
+    .col-sm-8
+      p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi suscipit vel tellus sit amet feugiat. Fusce orci leo, tristique sed fermentum vitae, aliquet eu quam. Ut sollicitudin commodo velit eu aliquet. Vivamus lorem odio, vulputate vitae hendrerit eget, lobortis eget sapien. Donec diam ipsum, commodo id ex eu, vulputate mollis nisi. Morbi rutrum sed lacus in rhoncus. Vestibulum rhoncus euismod augue, et dignissim neque efficitur volutpat. Integer sed purus felis. Vivamus viverra velit eget dui lobortis interdum. Vivamus mollis tempor eros et pharetra. Curabitur dignissim, nisl sit amet sagittis pretium, justo ante semper lacus, et pulvinar eros ante eget arcu. Maecenas quis enim at mauris viverra imperdiet sed sed urna. Integer erat neque, maximus in ante fringilla, euismod fringilla lorem. Curabitur id augue et tortor sagittis scelerisque.
+      p Ut pulvinar urna dolor, ut ornare eros consectetur eget. Integer maximus mauris in arcu feugiat, cursus mollis odio laoreet. Pellentesque ut facilisis ex. Donec sit amet maximus turpis, eget laoreet metus. Nullam eu fringilla lacus. Quisque non dapibus diam. Morbi ut ante et risus congue cursus. Suspendisse pharetra tortor ut luctus iaculis. Duis tempor est sed augue porta, quis maximus ante porttitor. Vivamus bibendum sem at arcu porttitor mattis. Interdum et malesuada fames ac ante ipsum primis in faucibus. Aenean tristique interdum tortor et tempus. Nulla facilisi.
+      p Aenean pulvinar eget magna at ornare. Pellentesque mauris nisl, congue nec leo ac, consectetur commodo nibh. Sed dictum, est ac pharetra congue, turpis libero ullamcorper metus, posuere imperdiet mi elit eu sem. Proin finibus iaculis laoreet. Pellentesque id metus sit amet turpis ultrices ultrices. Vestibulum vitae quam arcu. Suspendisse volutpat arcu et convallis congue. Ut eu dui ornare, lacinia turpis id, pellentesque massa. Nullam vel sollicitudin mi. Quisque nisl leo, interdum sed vehicula et, luctus ut velit. Quisque lobortis et sapien non sodales.
