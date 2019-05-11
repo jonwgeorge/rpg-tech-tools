@@ -20,8 +20,8 @@ const oidc = new ExpressOIDC({
   issuer: "https://dev-644430.okta.com/oauth2/default",
   client_id: "0oaklxh9xfQjiBaLx356",
   client_secret: "nWmtt2fNaJmWOFSqnYus_7aJKq-wEr7ad8OZcxCG",
-  redirect_uri: "http://localhost:3000/users/callback",
-  appBaseUrl: "http://localhost:3000",
+  redirect_uri: "https://rpg-tech-tools-dev.herokuapp.com/users/callback",
+  appBaseUrl: "https://rpg-tech-tools-dev.herokuapp.com",
   scope: "openid profile email",
   routes: {
     login: {
