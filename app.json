@@ -1,0 +1,46 @@
+{
+  "addons": [
+
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/nodejs"
+    }
+  ],
+  "description": "",
+  "env": {
+    "APP_SECRET": {
+      "required": true
+    },
+    "OKTA_APP_BASE_URL": {
+      "required": true
+    },
+    "OKTA_CLIENT_ID": {
+      "required": true
+    },
+    "OKTA_CLIENT_SECRET": {
+      "required": true
+    },
+    "OKTA_ISSUER_URL": {
+      "required": true
+    },
+    "OKTA_ORG_URL": {
+      "required": true
+    },
+    "OKTA_REDIRECT_URI": {
+      "required": true
+    },
+    "OKTA_TOKEN": {
+      "required": true
+    }
+  },
+  "formation": {
+    "web": {
+      "quantity": 1
+    }
+  },
+  "name": "rpg-tech-tools",
+  "scripts": {
+  },
+  "stack": "heroku-18"
+}
