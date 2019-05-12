@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 var createError = require("http-errors");
 var express = require("express");
 var path = require("path");
@@ -13,15 +15,15 @@ const creditsRouter = require("./routes/credits");
 
 var app = express();
 var oktaClient = new okta.Client({
-  orgUrl: "https://dev-644430.okta.com",
-  token: "004M58Pp3J00eItZHJlAEQzn_zNsNu9GAvv7j2x8PW"
+  orgUrl: process.env.OKTA_ORG_URL,
+  token: process.env.OKTA_TOKEN
 });
 const oidc = new ExpressOIDC({
-  issuer: "https://dev-644430.okta.com/oauth2/default",
-  client_id: "0oaklxh9xfQjiBaLx356",
-  client_secret: "nWmtt2fNaJmWOFSqnYus_7aJKq-wEr7ad8OZcxCG",
-  redirect_uri: "https://rpg-tech-tools-dev.herokuapp.com/users/callback",
-  appBaseUrl: "https://rpg-tech-tools-dev.herokuapp.com",
+  issuer: process.env.OKTA_ISSUER_URL,
+  client_id: process.env.OKTA_CLIENT_ID,
+  client_secret: process.env.OKTA_CLIENT_SECRET,
+  redirect_uri: process.env.OKTA_REDIRECT_URI,
+  appBaseUrl: process.env.OKTA_APP_BASE_URL,
   scope: "openid profile email",
   routes: {
     login: {
@@ -43,7 +45,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
 app.use(session({
-  secret: "CEhanyLB1*A0Dr2rAL9T$K^zLL21Cbho",
+  secret: process.env.APP_SECRET,
   resave: true,
   saveUninitialized: false
 }));
