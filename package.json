@@ -9,16 +9,23 @@
   "dependencies": {
     "@okta/oidc-middleware": "^2.0.0",
     "@okta/okta-sdk-nodejs": "^2.0.0",
+<<<<<<< HEAD
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
+=======
+>>>>>>> parent of 9469c8e... WIP Passport.js
     "cookie-parser": "~1.4.4",
     "debug": "~4.1.1",
     "dotenv": "^8.0.0",
     "express": "~4.16.1",
     "express-session": "^1.16.1",
     "express-validator": "^5.3.1",
+<<<<<<< HEAD
     "http-errors": "~1.7.2",
     "mocha": "^6.1.4",
+=======
+    "http-errors": "~1.6.3",
+>>>>>>> parent of 9469c8e... WIP Passport.js
     "morgan": "~1.9.1",
     "pug": "^2.0.3"
   }
