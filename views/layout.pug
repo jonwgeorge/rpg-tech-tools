@@ -19,11 +19,11 @@ html(lang="en")
         a.p-2.text-dark(href="/", title="Home") Home
 
         if user == undefined
-          a.p-2.text-dark(href="/auth/login") Log In / Register
+          a.p-2.text-dark(href="/users/login") Log In / Register
         else
           a.p-2.text-dark(href="/encounters") Encounters
-          a.p-2.text-dark(href="/user") Dashboard
-          a.p-2.text-dark(href="/auth/logout") Logout
+          a.p-2.text-dark(href="/dashboard") Dashboard
+          a.p-2.text-dark(href="/users/logout") Logout
     .container
       block content
 
