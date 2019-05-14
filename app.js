@@ -5,39 +5,17 @@ var express = require("express");
 var path = require("path");
 var logger = require("morgan");
 var session = require("express-session");
-var okta = require("@okta/okta-sdk-nodejs");
-var ExpressOIDC = require("@okta/oidc-middleware").ExpressOIDC;
+var passport = require("passport");
+var flash = require("flash");
 
-const dashboardRouter = require("./routes/dashboard");
 const publicRouter = require("./routes/public");
-const usersRouter = require("./routes/users");
-const creditsRouter = require("./routes/credits");
+const authRouter = require("./routes/auth");
+const userRouter = require("./routes/user");
 
 var app = express();
-var oktaClient = new okta.Client({
-  orgUrl: process.env.OKTA_ORG_URL,
-  token: process.env.OKTA_TOKEN
-});
-const oidc = new ExpressOIDC({
-  issuer: process.env.OKTA_ISSUER_URL,
-  client_id: process.env.OKTA_CLIENT_ID,
-  client_secret: process.env.OKTA_CLIENT_SECRET,
-  redirect_uri: process.env.OKTA_REDIRECT_URI,
-  appBaseUrl: process.env.OKTA_APP_BASE_URL,
-  scope: "openid profile email",
-  routes: {
-    login: {
-      path: "/users/login"
-    },
-    loginCallback: {
-      path: "/users/callback",
-      afterCallback: "/dashboard"
-    },
-  }
-});
 
 // view engine setup
-app.set("views", path.join(__dirname, "views"));
+app.set("views", path.join(__dirname, "/views"));
 app.set("view engine", "pug");
 
 app.use(logger("dev"));
@@ -49,38 +27,13 @@ app.use(session({
   resave: true,
   saveUninitialized: false
 }));
-app.use(oidc.router);
-app.use((req, res, next) => {
-  if (!req.userContext) {
-    return next();
-  }
-  
-  oktaClient.getUser(req.userContext.userinfo.sub)
-    .then(user => {
-      req.user = user;
-      res.locals.user = user;
-      next();
-  }).catch(err => {
-    next(err);
-  });
-});
-
-function loginRequired(req, res, next) {
-  if (!req.user) {
-    return res.status(401).render("unauthenticated");
-  }
-  
-  next();
-}
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use("/", publicRouter);
-app.use("/dashboard", loginRequired, dashboardRouter);
-app.use("/users", usersRouter);
-app.use("/credits", creditsRouter);
-
-app.get("/test", (req, res) => {
-  res.json({ profile: req.user ? req.user.profile : null });
-});
+app.use("/auth", authRouter)
+app.use("/user", userRouter);
+app.use("/credits", publicRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

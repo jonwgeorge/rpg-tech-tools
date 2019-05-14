@@ -1,0 +1,32 @@
+extends ../layout
+
+block variables
+  - var title = "Edit Profile"
+
+block content
+  h2.text-center Edit Profile
+
+  if errors
+    .alert.alert-danger
+      for error in errors
+        div `${error.msg}` for `${error.param}`
+
+  .row
+    .col-sm-12
+      form(method="POST" action="/dashboard/edit")
+        div.form-group
+          label(for="firstName") First Name:
+          input#firstName.form-control(type="text", value=`${user.profile.firstName}` name="firstName")
+        div.form-group
+          label(for="lastName") Last Name:
+          input#lastName.form-control(type="text", value=`${user.profile.lastName}` name="lastName")
+        div.form-group
+          label(for="displayName") Username:
+          input#displayName.form-control(type="text", value=`${user.profile.displayName}` name="displayName")
+        div.form-group
+          label(for="email") Email:
+          input#email.form-control(type="text", value=`${user.profile.email}` name="email")
+        button.btn.btn-primary(type='submit' style="width:100%") Save
+      div
+        a(href="/dashboard")
+          button.btn(style="width:100%") Cancel
