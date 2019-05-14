@@ -1,14 +1,21 @@
+process.env.NODE_ENV = "test";
+
 const chai = require("chai")
     , should = chai.should()
     , chaiHttp = require("chai-http");
-const mocha = require('mocha');
 const server = require("../app");
+const database = require("../db/connection");
 
 chai.use(chaiHttp);
 
-describe("test", () => {
-    it("should return status 200", () => {
-        chai.request(server).get('/')
+describe("routes : auth", () => {
+    beforeEach(() =>{
+        return database.migrate.rollback()
+        .then(() => { return database.migrate.latest(); });
+    });
+
+    afterEach(() => {
+        return database.migrate.rollback();
     });
 });
 
