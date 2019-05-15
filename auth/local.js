@@ -9,18 +9,15 @@ const options = {};
 
 init();
 
-passport.use(new LocalStrategy(options, (username, password, done) => {
+passport.use(new LocalStrategy(options, (email, password, done) => {
   // check to see if the username exists
-  database('users').where({ email }).first()
-  .then((user) => {
-    if (!user) return done(null, false);
-    if (!authHelpers.comparePass(password, user.password)) {
-      return done(null, false);
-    } else {
-      return done(null, user);
-    }
-  })
-  .catch((err) => { return done(err); });
+  const query = {
+    name: "fetch-user",
+    text: "SELECT * FROM users WHERE email = $1",
+    values: [email]
+  };
+
+  return database.query(query);
 }));
 
 module.exports = passport;

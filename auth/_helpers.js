@@ -1,5 +1,5 @@
 const bcrypt = require("bcrypt");
-const database = require("../db/connection");
+const User = require("../models/Users");
 
 function loginRequired(req, res, next) {
   if (!req.user) return res.status(401).json({status: "Please log in"});
@@ -9,17 +9,7 @@ function loginRequired(req, res, next) {
 function createUser (req) {
   const salt = bcrypt.genSaltSync();
   const hash = bcrypt.hashSync(req.body.password, salt);
-  return database('users')
-  .insert({
-    email: req.body.email,
-    password: hash,
-    username: req.body.username,
-    first_name: req.body.firstName,
-    last_name: req.body.lastName,
-    created_at: "current_timestamp",
-    modified_at: "current_timestamp"
-  })
-  .returning("*");
+  return User.createUser(req, hash, res);
 };
 
 function comparePass(userPassword, databasePassword) {

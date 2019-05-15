@@ -5,6 +5,7 @@ var express = require("express");
 var path = require("path");
 var logger = require("morgan");
 var session = require("express-session");
+var bodyParser = require("body-parser");
 var passport = require("passport");
 var flash = require("flash");
 
@@ -22,6 +23,7 @@ app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, "public")));
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(session({
   secret: process.env.APP_SECRET,
   resave: true,
